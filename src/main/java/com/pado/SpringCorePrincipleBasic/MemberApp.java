@@ -7,7 +7,10 @@ import com.pado.SpringCorePrincipleBasic.member.MemberServiceImpl;
 
 public class MemberApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
+
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService(); // app config에서 memberservice를 받아옴
+        //MemberService memberService = new MemberServiceImpl();
         Member member = new Member(1L, "memberA", Grade.VIP); // cmd +option + v 참조변수 선언해주는 단축키
         memberService.join(member);
 

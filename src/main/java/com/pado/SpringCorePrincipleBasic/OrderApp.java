@@ -10,8 +10,13 @@ import com.pado.SpringCorePrincipleBasic.order.OrderServiceImpl;
 
 public class OrderApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
+
+        // app config를 통해 멤버 서비스와 오더서비스를 꺼낸다.
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
+        //MemberService memberService = new MemberServiceImpl();
+        //OrderService orderService = new OrderServiceImpl();
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);

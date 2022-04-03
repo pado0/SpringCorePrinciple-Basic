@@ -1,17 +1,27 @@
 package com.pado.SpringCorePrincipleBasic.order;
 
+import com.pado.SpringCorePrincipleBasic.AppConfig;
 import com.pado.SpringCorePrincipleBasic.member.Grade;
 import com.pado.SpringCorePrincipleBasic.member.Member;
 import com.pado.SpringCorePrincipleBasic.member.MemberService;
 import com.pado.SpringCorePrincipleBasic.member.MemberServiceImpl;
 //import org.junit.jupiter.api.Assertions;
+import org.aspectj.weaver.ast.Or;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
 
 public class OrderServiceTest {
 
-    MemberService memberService = new MemberServiceImpl();
-    OrderService orderService = new OrderServiceImpl();
+    //MemberService memberService = new MemberServiceImpl();
+    //OrderService orderService = new OrderServiceImpl();
+    MemberService memberService;
+    OrderService orderService;
+
+    public void beforeEach(){
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+        orderService = appConfig.orderService();
+    }
 
     @Test
     void createOrder(){
