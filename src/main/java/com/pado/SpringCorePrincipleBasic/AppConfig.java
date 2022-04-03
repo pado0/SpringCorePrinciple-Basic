@@ -9,7 +9,10 @@ import com.pado.SpringCorePrincipleBasic.member.MemberServiceImpl;
 import com.pado.SpringCorePrincipleBasic.member.MemoryMemberRepository;
 import com.pado.SpringCorePrincipleBasic.order.OrderService;
 import com.pado.SpringCorePrincipleBasic.order.OrderServiceImpl;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class AppConfig {
 
     // 이전에는 객체 참조변수에 어떤 객체를 생성할건지 직접 정해주었지만
@@ -25,20 +28,26 @@ public class AppConfig {
     // 아래처럼 메서드 명만 봐도 역할이 잘 분리된다.
     // 역할이 어떤 구현체를 갖는지도 삭 정리된다.
     // 이제 변경시 아래에 구현체만 갈아끼워주면 된다.
+
+    // 스프링으로 전환해보자.
+    @Bean// 스프링 컨테이너에 등록하는 어노테이션
     public MemberRepository memberRepository(){
         return new MemoryMemberRepository();
     }
 
+    @Bean
     public MemberService memberService(){
         // MemberServiceImpl을 생성할때, 생성한 MemoryMemberRepository를 넘긴다.
         // MemberServiceImpl입장에서는 의존관계를 외부에서 주입해주는 것 같다고 해서 DI.
         return new MemberServiceImpl(memberRepository());
     }
 
+    @Bean
     public OrderService orderService(){
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
+    @Bean
     public DiscountPolicy discountPolicy(){
         return new RateDiscountPolicy();
     }
