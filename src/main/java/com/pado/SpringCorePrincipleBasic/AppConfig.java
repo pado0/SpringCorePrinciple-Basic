@@ -32,6 +32,7 @@ public class AppConfig {
     // 스프링으로 전환해보자.
     @Bean// 스프링 컨테이너에 등록하는 어노테이션
     public MemberRepository memberRepository(){
+        System.out.println("call AppConfig.memberRepository");
         return new MemoryMemberRepository();
     }
 
@@ -39,11 +40,13 @@ public class AppConfig {
     public MemberService memberService(){
         // MemberServiceImpl을 생성할때, 생성한 MemoryMemberRepository를 넘긴다.
         // MemberServiceImpl입장에서는 의존관계를 외부에서 주입해주는 것 같다고 해서 DI.
+        System.out.println("call AppConfig.memberService");
         return new MemberServiceImpl(memberRepository());
     }
 
     @Bean
     public OrderService orderService(){
+        System.out.println("call AppConfig.orderService");
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
 
