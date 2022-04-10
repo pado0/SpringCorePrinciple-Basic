@@ -7,6 +7,7 @@ import com.pado.SpringCorePrincipleBasic.member.MemberService;
 import com.pado.SpringCorePrincipleBasic.member.MemberServiceImpl;
 //import org.junit.jupiter.api.Assertions;
 import org.aspectj.weaver.ast.Or;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
 
@@ -17,6 +18,7 @@ public class OrderServiceTest {
     MemberService memberService;
     OrderService orderService;
 
+    @BeforeEach
     public void beforeEach(){
         AppConfig appConfig = new AppConfig();
         memberService = appConfig.memberService();
@@ -30,6 +32,6 @@ public class OrderServiceTest {
         memberService.join(member);
 
         Order order = orderService.createOrder(memberId, "iA", 10000);
-        Assertions.assertThat(order.getDiscountPrice()).isEqualTo(1000);
+        Assertions.assertThat(order.getDiscountPrice()).isEqualTo(2000);
     }
 }

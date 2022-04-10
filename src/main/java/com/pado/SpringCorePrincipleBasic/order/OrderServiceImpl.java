@@ -1,26 +1,34 @@
 package com.pado.SpringCorePrincipleBasic.order;
 
+import com.pado.SpringCorePrincipleBasic.annotation.MainDiscountPolicy;
 import com.pado.SpringCorePrincipleBasic.discount.DiscountPolicy;
 import com.pado.SpringCorePrincipleBasic.discount.FixDiscountPolicy;
 import com.pado.SpringCorePrincipleBasic.discount.RateDiscountPolicy;
 import com.pado.SpringCorePrincipleBasic.member.Member;
 import com.pado.SpringCorePrincipleBasic.member.MemberRepository;
 import com.pado.SpringCorePrincipleBasic.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
+@RequiredArgsConstructor // final이 붙은 필수 변수를 기준으로 생성자를 만들어줌, autowired는 자동으로 붙으니 생략가능? 왜안되지? ->자동 생성이라 순서도 중요하구나..!
 public class OrderServiceImpl implements OrderService{
 
     //private final MemberRepository memberRepository = new MemoryMemberRepository();
     //private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
     //private final DiscountPolicy discountPolicy = new RateDiscountPolicy(); // 이렇게 코드수정이 들어간다.
 
-    private final DiscountPolicy discountPolicy; // 인터페이스에만 의존하도록 변경, 이렇게만 하면 null pointer exception ㅋㅋㅋ
     private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy; // 인터페이스에만 의존하도록 변경, 이렇게만 하면 null pointer exception ㅋㅋㅋ
+
 
     // 철저하게 인터페이스에만 의존하고있다. 너무 좋다. 완벽한 DIP. FIxdiscount를 사용할지 Rate를 사용할지 알바 없다.
+    /*@Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
-    }
+    }*/
 
 
     // 주문이 들어오면 회원정보를 저장소에서 찾고
